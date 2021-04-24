@@ -4,25 +4,31 @@ namespace Manzadey\Menu;
 
 use Illuminate\Support\Collection;
 
-final class Menu
+class Menu
 {
-    private array $items = [];
+    /**
+     * @var array
+     */
+    private $items = [];
 
-    public int $count = 0;
+    /**
+     * @var int
+     */
+    public $count = 0;
 
-    final public function newItem() : Item
+    public function newItem() : Item
     {
         return new Item;
     }
 
-    final public function add(Item $item) : self
+    public function add(Item $item) : self
     {
         $this->items[] = $this->handleItem($item);
 
         return $this;
     }
 
-    final public function addItem(string $name, string $link) : self
+    public function addItem(string $name, string $link) : self
     {
         $this->add($this->newItem()->name($name)->link($link));
 
@@ -40,7 +46,7 @@ final class Menu
         });
     }
 
-    final public function getAll(Collection $items = null, array &$collect = []) : Collection
+    public function getAll(Collection $items = null, array &$collect = []) : Collection
     {
         if($items === null) {
             $items = collect($this->items);
@@ -63,12 +69,14 @@ final class Menu
      *
      * @return Collection
      */
-    final public function getByName(...$names) : Collection
+    public function getByName(...$names) : Collection
     {
-        return $this->getAll()->filter(fn(Item $item) : bool => in_array($item->name, $names, true));
+        return $this->getAll()->filter(static function(Item $item) use ($names) : bool {
+            return in_array($item->name, $names, true);
+        });
     }
 
-    private function handleItem(Item $item) : Item
+    function handleItem(Item $item) : Item
     {
         $item->setId($item->id . '_' . ++$this->count);
 

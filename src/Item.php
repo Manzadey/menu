@@ -2,28 +2,54 @@
 
 namespace Manzadey\Menu;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Item
 {
-    public string $name;
+    /**
+     * @var string
+     */
+    public $name;
 
-    public string $link = '#';
+    /**
+     * @var string
+     */
+    public $link = '#';
 
-    public string $route = '';
+    /**
+     * @var string
+     */
+    public $route = '';
 
-    public ?string $id = null;
+    /**
+     * @var null|string
+     */
+    public $id = null;
 
-    public bool $isChildren = false;
+    /**
+     * @var bool
+     */
+    public $isChildren = false;
 
-    public bool $isActive = false;
+    /**
+     * @var bool
+     */
+    public $isActive = false;
 
-    public Collection $children;
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    public $children;
 
-    public int $count = 0;
+    /**
+     * @var int
+     */
+    public $count = 0;
 
-    private bool $hasChildren = false;
+    /**
+     * @var bool
+     */
+    private $hasChildren = false;
 
     public function __construct()
     {
