@@ -6,15 +6,11 @@ use Illuminate\Support\Collection;
 
 class Menu
 {
-    /**
-     * @var array
-     */
-    private $items = [];
+    private array $items = [];
 
-    /**
-     * @var int
-     */
-    public $count = 0;
+    public int $count = 0;
+
+    public array $attributes = [];
 
     public function newItem() : Item
     {
@@ -76,10 +72,20 @@ class Menu
         });
     }
 
-    function handleItem(Item $item) : Item
+    public function handleItem(Item $item) : Item
     {
         $item->setId($item->id . '_' . ++$this->count);
 
         return $item;
+    }
+
+    public function hasAttribute(string $key) : bool
+    {
+        return isset($this->attributes[$key]);
+    }
+
+    public function getAttribute(string $key)
+    {
+        return $this->hasAttribute($key) ? $this->attributes[$key] : null;
     }
 }
