@@ -10,7 +10,7 @@ class Menu
 
     public int $count = 0;
 
-    public array $attributes = [];
+    private array $attributes = [];
 
     public function newItem() : Item
     {
