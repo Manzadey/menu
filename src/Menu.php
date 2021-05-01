@@ -88,4 +88,11 @@ class Menu
     {
         return $this->hasAttribute($key) ? $this->attributes[$key] : null;
     }
+
+    public function setAttribute(string $key, $value) : bool
+    {
+        $this->attributes[$key] = $value;
+
+        return $this->getAttribute($key) === $value;
+    }
 }
