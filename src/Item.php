@@ -105,10 +105,10 @@ class Item
         return $this->hasAttribute($key) ? $this->attributes[$key] : null;
     }
 
-    public function setAttribute(string $key, $value) : bool
+    public function setAttribute(string $key, $value) : self
     {
         $this->attributes[$key] = $value;
 
-        return $this->getAttribute($key) === $value;
+        return $this;
     }
 }
