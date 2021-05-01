@@ -2,54 +2,30 @@
 
 namespace Manzadey\Menu;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Item
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var string
-     */
-    public $link = '#';
+    public string $link = '#';
 
-    /**
-     * @var string
-     */
-    public $route = '';
+    public string $route = '';
 
-    /**
-     * @var null|string
-     */
-    public $id = null;
+    public ?string $id = null;
 
-    /**
-     * @var bool
-     */
-    public $isChildren = false;
+    public bool $isChildren = false;
 
-    /**
-     * @var bool
-     */
-    public $isActive = false;
+    public bool $isActive = false;
 
-    /**
-     * @var \Illuminate\Support\Collection
-     */
-    public $children;
+    public Collection $children;
 
-    /**
-     * @var int
-     */
-    public $count = 0;
+    public int $count = 0;
 
-    /**
-     * @var bool
-     */
-    private $hasChildren = false;
+    private bool $hasChildren = false;
+
+    private array $attributes = [];
 
     public function __construct()
     {
@@ -117,5 +93,22 @@ class Item
 
             $this->isActive = request()->path() === $uri;
         }
+    }
+
+    public function hasAttribute(string $key) : bool
+    {
+        return isset($this->attributes[$key]);
+    }
+
+    public function getAttribute(string $key)
+    {
+        return $this->hasAttribute($key) ? $this->attributes[$key] : null;
+    }
+
+    public function setAttribute(string $key, $value) : bool
+    {
+        $this->attributes[$key] = $value;
+
+        return $this->getAttribute($key) === $value;
     }
 }
